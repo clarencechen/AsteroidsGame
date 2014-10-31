@@ -1,13 +1,22 @@
 SpaceShip bob;
+Star[] constel = new Star[64];
 public void setup() 
 {
- bob = new SpaceShip();
- size(600, 600);
- background(0);
+  for (int i = 0;i<constel.length;i++)
+  {
+    constel[i] = new Star();
+  }
+  bob = new SpaceShip();
+  size(600, 600);
+  background(0);
 }
 public void draw() 
 {
   background(0);
+  for (int i = 0;i<constel.length;i++)
+  {
+    constel[i].show();
+  }
   bob.move();
   bob.show();
 }
@@ -159,5 +168,21 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     }   
     endShape(CLOSE);  
   }   
-} 
+}
+class Star
+{
+  private int x;
+  private int y;
+  public Star()
+  {
+    x = (int)(Math.random()*600);
+    y = (int)(Math.random()*600);
+  }
+  public void show()
+  {
+    fill(255);   
+    noStroke();
+    ellipse(x, y, 1, 1);
+  }
+}
 
