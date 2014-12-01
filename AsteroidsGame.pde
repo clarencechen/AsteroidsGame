@@ -30,7 +30,6 @@ public void draw()
 		belt.get(i).update();
 		if(belt.get(i).del)
 		{
-			println("del: "+i+" "+belt.get(i).del);
 			belt.remove(i);
 		}
 		else
@@ -137,7 +136,7 @@ class Bullet extends Floater
 		double dy = edgeY -a.getY();
 		if (dx*dx+dy*dy < 256+Math.pow(a.getMass(), 2./3.))
 		{
-			a.setMass(-8);
+			a.setMass(-16);
 			del = true;
 		}
 	}
@@ -185,7 +184,6 @@ class SpaceShip extends Floater
 			myDirectionY = (vy*deltaMass +2*a.getMass()*wy)/totalMass;
 			a.setDirectionX((-wx*deltaMass +2*mass*vx)/totalMass);
 			a.setDirectionY((-wy*deltaMass +2*mass*vy)/totalMass);
-			println("collision: "+a+" "+a.mass+" spaceship");
 		}
 	}
 	protected double mass;
