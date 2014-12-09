@@ -46,7 +46,6 @@ public void draw()
 		belt.get(i).update();
 		if(belt.get(i).del)
 		{
-			println("del: "+i+" "+belt.get(i).del);
 			belt.remove(i);
 		}
 		else
@@ -142,7 +141,7 @@ class Bullet extends Floater
 		myDirectionX = s.getDirectionX()+v*Math.cos((double)(s.getPointDirection())*(Math.PI/180));
 		myDirectionY = s.getDirectionY()+v*Math.sin((double)(s.getPointDirection())*(Math.PI/180));
 		myPointDirection = s.getPointDirection();
-		mass = 32;
+		mass = 64;
 	}
 	public void collide(Asteroid a)
 	{
@@ -153,7 +152,7 @@ class Bullet extends Floater
 		double dy = edgeY -a.getY();
 		if (dx*dx+dy*dy < 256+Math.pow(a.getMass(), 2.f/3.f))
 		{
-			a.setMass(-8);
+			a.setMass(-64);
 			del = true;
 		}
 	}
@@ -176,14 +175,14 @@ class SpaceShip extends Floater
 		xCorners = new int[3];
 		yCorners = new int[3];
 		xCorners[0] = 8;	xCorners[1] = -4;	xCorners[2] = -4;
-		yCorners[0] = 0;	yCorners[1] = 4;	yCorners[2] = -4;
+		yCorners[0] = 0;	yCorners[1] = 8;	yCorners[2] = -8;
 		myColor = color(255,0,0);
 		myCenterX = 300;
 		myCenterY = 300;
 		myDirectionX = 0.5f;
 		myDirectionY = 0.5f;
 		myPointDirection = 0;
-		mass = 48;
+		mass = 1024;
 	}
 	public void collide(Asteroid a)
 	{
@@ -201,7 +200,6 @@ class SpaceShip extends Floater
 			myDirectionY = (vy*deltaMass +2*a.getMass()*wy)/totalMass;
 			a.setDirectionX((-wx*deltaMass +2*mass*vx)/totalMass);
 			a.setDirectionY((-wy*deltaMass +2*mass*vy)/totalMass);
-			println("collision: "+a+" "+a.mass+" spaceship");
 		}
 	}
 	protected double mass;
@@ -225,7 +223,7 @@ class Asteroid extends Floater
 	{	
 		del = false;
 		rotSpeed = (int)(Math.random()*30 -15);
-		mass = 512;
+		mass = 4096;
 		corners = 4;
 		xCorners = new int[4];
 		yCorners = new int[4];
@@ -247,7 +245,7 @@ class Asteroid extends Floater
 	{
 		double dx = myCenterX-a.getX();
 		double dy = myCenterY-a.getY();
-		if (dx*dx+dy*dy < Math.pow(mass, 2.f/3.f)+Math.pow(a.getMass(), 2.f/3.f))
+		if (dx*dx+dy*dy < (Math.pow(mass, 2.f/3.f)+Math.pow(a.getMass(), 2.f/3.f))/4)
 		{
 			double totalMass = mass+a.getMass();
 			double deltaMass = mass-a.getMass();
@@ -263,16 +261,16 @@ class Asteroid extends Floater
 	}
 	public void update()
 	{
-		xCorners[0] = (int)(-Math.pow(mass, 1.f/3.f));
-		xCorners[1] = (int)(-Math.pow(mass, 1.f/3.f));
-		xCorners[2] = (int)(Math.pow(mass, 1.f/3.f));
-		xCorners[3] = (int)(Math.pow(mass, 1.f/3.f));
-		yCorners[0] = (int)(-Math.pow(mass, 1.f/3.f));
-		yCorners[1] = (int)(Math.pow(mass, 1.f/3.f));
-		yCorners[2] = (int)(Math.pow(mass, 1.f/3.f));
-		yCorners[3] = (int)(-Math.pow(mass, 1.f/3.f));
+		xCorners[0] = (int)(-Math.pow(mass, 1.f/3.f)/2);
+		xCorners[1] = (int)(-Math.pow(mass, 1.f/3.f)/2);
+		xCorners[2] = (int)(Math.pow(mass, 1.f/3.f)/2);
+		xCorners[3] = (int)(Math.pow(mass, 1.f/3.f)/2);
+		yCorners[0] = (int)(-Math.pow(mass, 1.f/3.f)/2);
+		yCorners[1] = (int)(Math.pow(mass, 1.f/3.f)/2);
+		yCorners[2] = (int)(Math.pow(mass, 1.f/3.f)/2);
+		yCorners[3] = (int)(-Math.pow(mass, 1.f/3.f)/2);
 
-		if(mass < 32)
+		if(mass < 64)
 		{
 			del = true;
 		}
@@ -292,7 +290,7 @@ class Asteroid extends Floater
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
-	protected int corners;  //the number of corners, a triangular floater has 3   
+	protected int corners;  //the number of corners, a triangular floassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssscccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssscater has 3   
 	protected int[] xCorners;   
 	protected int[] yCorners;   
 	protected int myColor;   
